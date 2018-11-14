@@ -8,6 +8,8 @@ import pieces.Piece;
 public class Square extends Group {
 
 	public static final double SIZE = 80;
+	public static Square active;
+	
 	private Rectangle bg;
 	private Color originalColor;
 	private Piece piece;
@@ -20,17 +22,26 @@ public class Square extends Group {
 		this.setOnMouseClicked(event -> {
 
 			// EXEMPEL:
-			if (hasPiece()) {
-				if (!this.getBackground().getFill().equals(originalColor)) {
-					this.getBackground().setFill(originalColor);
-				} else {
-					this.getBackground().setFill(Color.RED);
-				}
+			if (hasPiece()) {	
+				makeActive();
 			}
-
 		});
-
 	}
+	
+	public void makeInactive(){
+		this.getBackground().setFill(originalColor);
+		active = null;
+	}
+	
+	
+	public void makeActive(){
+		if(active != null){
+			active.makeInactive();
+		}
+		active = this;
+		this.getBackground().setFill(Color.RED);
+	}
+	
 
 	public void addPiece(Piece p) {
 		this.piece = p;
@@ -44,5 +55,24 @@ public class Square extends Group {
 	public Rectangle getBackground() {
 		return this.bg;
 	}
+	
+	public int getX(){
+		int y = getY();
+		for (int i = 0; i < 8; i++) {
+			if(ChessBoard.map.get(getY()).get(i) == this){
+				return i;
+			}
+		}
+		return -1;
+		
+	}
 
+	public int getY(){
+		for (int i = 0; i < 8; i++) {
+			if(ChessBoard.map.get(i).contains(this)){
+				return i;
+			}
+		}
+		return -1;
+	}
 }
