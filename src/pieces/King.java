@@ -3,26 +3,11 @@ package pieces;
 import board.ChessBoard;
 import javafx.scene.paint.Color;
 
-public class King extends Piece {
+	public class King extends Piece {
 
 	
-	public King(Color c) {
-		super(c);
-	}
-
-	@Override
-	public void showMove(int x, int y) {
-		
-		if(this.getColor() == Color.WHITE){
-			ChessBoard.getSquare(x, y).moveMark();
-
+		public King(Color c) {
+			super(c);
 		}
-		else {
-			ChessBoard.getSquare(x, y).moveMark();
 
-		}
-	}
-
-	
-	
 }

@@ -9,21 +9,6 @@ import javafx.scene.paint.Color;
 			super(c);
 		}
 
-		@Override
-		public void showMove(int x, int y) {
-			
-			if(this.getColor() == Color.WHITE){
-				ChessBoard.getSquare(x, y).moveMark();
-
-			}
-			else {
-				ChessBoard.getSquare(x, y).moveMark();
-
-			}
-		}
-
-		
-		
-	}
+}
 
 

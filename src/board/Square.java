@@ -26,6 +26,12 @@ public class Square extends Group {
 		this.setOnMouseClicked(event -> {
 
 			if(marked.contains(this)){
+				
+				if(this.hasPiece()){
+					this.getChildren().remove(this.piece);
+					this.piece = null;
+				}
+				
 				Piece p = active.piece;
 				active.piece = null;
 				active.makeInactive();
@@ -109,5 +115,18 @@ public class Square extends Group {
 		this.getChildren().add(cir);
 		
 		marked.add(this);
+	}
+
+	public void attackMark() {
+		
+		Circle cir = new Circle(Square.SIZE/2,Square.SIZE/2,Square.SIZE/9,Color.RED);
+		this.getChildren().add(cir);
+		
+		marked.add(this);
+		
+	}
+
+	public Color getPieceColor() {
+		return this.piece.getColor();
 	}
 }
