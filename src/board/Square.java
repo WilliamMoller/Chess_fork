@@ -1,14 +1,18 @@
 package board;
 
+import java.util.ArrayList;
+
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import pieces.Piece;
 
 public class Square extends Group {
 
 	public static final double SIZE = 80;
-	public static Square active;
+	private static Square active;
+	private static ArrayList<Square> marked = new ArrayList<Square>();
 	
 	private Rectangle bg;
 	private Color originalColor;
@@ -21,9 +25,22 @@ public class Square extends Group {
 
 		this.setOnMouseClicked(event -> {
 
-			// EXEMPEL:
+			if(marked.contains(this)){
+				Piece p = active.piece;
+				active.piece = null;
+				active.makeInactive();
+				this.addPiece(p);
+				p.move();
+				return;
+			}
+			
 			if (hasPiece()) {	
 				makeActive();
+			}
+			else{
+				if(active != null){
+					active.makeInactive();
+				}
 			}
 		});
 	}
@@ -31,6 +48,7 @@ public class Square extends Group {
 	public void makeInactive(){
 		this.getBackground().setFill(originalColor);
 		active = null;
+		removeMoveMark();
 	}
 	
 	
@@ -38,6 +56,7 @@ public class Square extends Group {
 		if(active != null){
 			active.makeInactive();
 		}
+		piece.showMove(getX(),getY());
 		active = this;
 		this.getBackground().setFill(Color.RED);
 	}
@@ -74,5 +93,21 @@ public class Square extends Group {
 			}
 		}
 		return -1;
+	}
+	
+	public static void removeMoveMark(){
+		
+		for (Square square : marked) {
+			square.getChildren().remove(square.getChildren().size()-1);
+		}
+		marked.clear();
+	}
+	
+	public void moveMark(){
+		
+		Circle cir = new Circle(Square.SIZE/2,Square.SIZE/2,Square.SIZE/9,Color.BLACK);
+		this.getChildren().add(cir);
+		
+		marked.add(this);
 	}
 }

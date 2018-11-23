@@ -26,7 +26,6 @@ public class ChessBoard extends Group {
 				}
 
 				Square s = new Square(bg);
-				rad.add(s);
 				s.setTranslateX(col * Square.SIZE);
 				s.setTranslateY(row * Square.SIZE);
 				this.getChildren().add(s);
