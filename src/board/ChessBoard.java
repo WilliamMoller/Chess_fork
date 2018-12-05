@@ -78,4 +78,6 @@ public class ChessBoard extends Group {
 		return map.get(y).get(x);
 	}
 	
+	public static int turn = 0;
+		
 }

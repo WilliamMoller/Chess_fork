@@ -79,6 +79,7 @@ public class Pawn extends Piece {
 
 	public void move() {
 		hasMoved = true;
+		ChessBoard.turn++;
 	}
 	
 }

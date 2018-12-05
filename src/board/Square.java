@@ -62,8 +62,9 @@ public class Square extends Group {
 		if(active != null){
 			active.makeInactive();
 		}
-		piece.showMove(getX(),getY());
 		active = this;
+		this.piece.showMove(getX(),getY());
+		
 		this.getBackground().setFill(Color.RED);
 	}
 	

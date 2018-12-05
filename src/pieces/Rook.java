@@ -59,7 +59,7 @@ import javafx.scene.paint.Color;
 		}
 		
 		public void move(){
-			
+			ChessBoard.turn++;
 		}
 		
 }
