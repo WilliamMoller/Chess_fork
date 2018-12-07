@@ -79,5 +79,4 @@ public class ChessBoard extends Group {
 	}
 	
 	public static int turn = 0;
-		
 }
