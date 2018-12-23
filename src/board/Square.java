@@ -16,6 +16,7 @@ public class Square extends Group {
 	public static final double SIZE = 100;
 	private static Square active;
 	private static ArrayList<Square> marked = new ArrayList<Square>();
+	public static boolean gameOver;
 	
 	private Rectangle bg;
 	private Color originalColor;
@@ -27,31 +28,34 @@ public class Square extends Group {
 		this.getChildren().add(bg);
 
 		this.setOnMouseClicked(event -> {
-
+			if(gameOver){
+				return;
+			}
 			if(marked.contains(this)){
 				if(this.hasPiece()){
 					if(this.piece instanceof King){
-						Rectangle box = new Rectangle(400, 150);
+						Rectangle box = new Rectangle(400, 200);
 						box.setTranslateX(chess.WIDTH/2 - box.getWidth()/2);
 						box.setTranslateY(chess.HEIGHT/2 - box.getHeight()/2);
 						box.setStrokeWidth(2);
 						Text winner = new Text();
-						winner.setTranslateX(chess.WIDTH/2 - 128);
-						winner.setTranslateY(chess.HEIGHT/2 + 15);
-						winner.setFont(new Font(50));
+						winner.setFont(new Font(70));
 						if(this.piece.getColor() == Color.WHITE){
-							box.setStroke(Color.WHITE);
-							box.setFill(Color.BLACK);
 							winner.setText("Black Wins!");
 							winner.setFill(Color.WHITE);
+							box.setStroke(Color.BLACK);
+							box.setFill(Color.BLACK);
 						}
 						else{
-							box.setStroke(Color.BLACK);
-							box.setFill(Color.WHITE);
 							winner.setText("White Wins!");
 							winner.setFill(Color.BLACK);
+							box.setStroke(Color.BLACK);
+							box.setFill(Color.WHITE);
 						}
+						winner.setTranslateX(chess.WIDTH/2 - winner.getBoundsInLocal().getWidth()/2);
+						winner.setTranslateY(chess.WIDTH/2 + winner.getBoundsInLocal().getHeight()/4);
 						chess.root.getChildren().addAll(box, winner);
+						gameOver = true;
 					}
 					
 					this.getChildren().remove(this.piece);
